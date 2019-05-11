@@ -7,14 +7,18 @@ function makeGraphs(err, theData) {
     
     theData.forEach(function(d){
         d.salary = parseInt(d.salary);
+        d.yrs_service = parseInt(d['yrs.service']);
+        d.yrs_since_phd = parseInt(d['yrs.since.phd']);
     })
     
     show_gender_balance(ndx);
     show_discipline_selector(ndx);
     show_average_salary(ndx);
     show_rank_distribution(ndx);
-    show_women_proffesors(ndx);
-    show_men_proffesors(ndx);
+    show_percentage_proffesors(ndx, 'Female', 'women-profs');
+    show_percentage_proffesors(ndx, 'Male', 'male-profs');
+    show_years_vs_salary(ndx);
+    show_phd_vs_salary(ndx);
     
     dc.renderAll();
 }
@@ -137,10 +141,107 @@ function show_rank_distribution(ndx) {
         .legend(dc.legend().x(20).y(20).itemHeight(15).gap(5))
 }
 
-function show_women_proffesors(ndx) {
+function show_percentage_proffesors(ndx, sex, divid) {
+    var percentageProfs = ndx.groupAll().reduce(
+        function(p,v) {
+            if (v.sex == sex) {
+                p.count++;
+                if (v.rank == "Prof") {
+                    p.are_prof++;
+                }
+            }
+            return p;
+        }, function(p,v) {
+            if (v.sex == sex) {
+                p.count--;
+                if (v.rank == "Prof") {
+                    p.are_prof--;
+                }
+            }
+            return p;
+        }, function() {
+            return {count: 0, are_prof: 0};
+        }
+    );
     
+    dc.numberDisplay('#' + divid)
+        .formatNumber(d3.format(".2%"))
+        .valueAccessor(function(d) {
+            if (d.count == 0) {
+                return 0;
+            } else {
+                return (d.are_prof / d.count);
+            }
+        })
+        .group(percentageProfs);
 }
 
-function show_men_proffesors(ndx) {
+function show_years_vs_salary(ndx) {
     
+    var genderColors = d3.scale.ordinal()
+        .domain(['Female','Male'])
+        .range(['pink','blue']);
+    
+    var yearsDim = ndx.dimension(dc.pluck('yrs_service'));
+    var vsSalaryDim = ndx.dimension(function(d) {
+        return [d.yrs_service, d.salary, d.rank, d.sex];
+    });
+    var experienceSalaryGroup = vsSalaryDim.group();
+    var minExperience = yearsDim.bottom(1)[0].yrs_service;
+    var maxExperience = yearsDim.top(1)[0].yrs_service;
+    
+    dc.scatterPlot('#years-vs-salary')
+        .width(800)
+        .height(300)
+        .x(d3.scale.linear().domain([minExperience, maxExperience]))
+        .brushOn(false)
+        .symbolSize(8)
+        .clipPadding(10)
+        .yAxisLabel('Salary')
+        .xAxisLabel('Years of Service')
+        .title(function(d) {
+            return d.key[2] + " earned " + d.key[1];
+        })
+        .colorAccessor(function(d) {
+            return d.key[3];
+        })
+        .colors(genderColors)
+        .dimension(vsSalaryDim)
+        .group(experienceSalaryGroup)
+        .margins({top: 10, right: 50, bottom: 75, left: 75});
+}
+
+function show_phd_vs_salary(ndx) {
+    
+    var genderColors = d3.scale.ordinal()
+        .domain(['Female','Male'])
+        .range(['pink','blue']);
+    
+    var yearsDim = ndx.dimension(dc.pluck('yrs_since_phd'));
+    var vsSalaryDim = ndx.dimension(function(d) {
+        return [d.yrs_since_phd, d.salary, d.rank, d.sex];
+    });
+    var experienceSalaryGroup = vsSalaryDim.group();
+    var minExperience = yearsDim.bottom(1)[0].yrs_since_phd;
+    var maxExperience = yearsDim.top(1)[0].yrs_since_phd;
+    
+    dc.scatterPlot('#years-since-phd-vs-salary')
+        .width(800)
+        .height(300)
+        .x(d3.scale.linear().domain([minExperience, maxExperience]))
+        .brushOn(false)
+        .symbolSize(8)
+        .clipPadding(10)
+        .yAxisLabel('Salary')
+        .xAxisLabel('Years of Service')
+        .title(function(d) {
+            return d.key[2] + " earned " + d.key[1];
+        })
+        .colorAccessor(function(d) {
+            return d.key[3];
+        })
+        .colors(genderColors)
+        .dimension(vsSalaryDim)
+        .group(experienceSalaryGroup)
+        .margins({top: 10, right: 50, bottom: 75, left: 75});
 }
