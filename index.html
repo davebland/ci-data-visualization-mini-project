@@ -1,46 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Gender Statistics in Academia</title>
-    
-    <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="/static/css/dc.min.css" type="text/css" />
-    <link rel="stylesheet" href="/static/css/styles.css" type="text/css" />
-    
-    <script type="text/javascript" src="/static/js/d3.min.js"></script>
-    <script type="text/javascript" src="/static/js/crossfilter.min.js"></script>
-    <script type="text/javascript" src="/static/js/dc.min.js"></script>
-    <script type="text/javascript" src="/static/js/queue.min.js"></script>
-    <script type="text/javascript" src="/static/js/graph.js"></script>
-</head>
-<body>
-    <h1>Gender Stats in Academia</h1>
-    <div id="gender-balance">
-        <h2>Gender Balance</h2>
-    </div>
-    <div id="discipline-selector">
-        <h2>Select By Disipline</h2>
-    </div>
-    <div id="average-pay">
-        <h2>Average Pay</h2>
-    </div>
-    <div id="rank-distribution">
-        <h2>Rank Distribution</h2>
-    </div>
-    <div id="women-profs">
-        <h2>Women Who Are Proffesors</h2>
-    </div>
-    <div id="male-profs">
-        <h2>Men Who Are Proffesors</h2>
-    </div>
-    <div id="years-vs-salary">
-        <h2>Years Service Vs Salary</h2>
-    </div>
-    <div id="years-since-phd-vs-salary">
-        <h2>Years Since PHD Vs Salary</h2>
-    </div>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Gender Statistics in Academia</title>
+        
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="/static/css/dc.min.css" type="text/css" />
+        <link rel="stylesheet" href="/static/css/styles.css" type="text/css" />
+        
+        <script type="text/javascript" src="/static/js/d3.min.js"></script>
+        <script type="text/javascript" src="/static/js/crossfilter.min.js"></script>
+        <script type="text/javascript" src="/static/js/dc.min.js"></script>
+        <script type="text/javascript" src="/static/js/queue.min.js"></script>
+        <script type="text/javascript" src="/static/js/graph.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#"><h1>Gender Stats in Academia</h1></a>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                
+            </div>
+            <section class="row align-items-center">
+                <p class="col-6 text-right mb-0"><em>Select By Dicipline</em></p>
+                <div class="col-6" id="discipline-selector"></div>
+            </section>
+            <section class="row justify-content-center text-center">
+                <h3 class="col-6">Women Who Are Professors</h3>
+                <h3 class="col-6">Men Who Are Professors</h3>
+                <div id="women-profs" class="col-6 lead"></div>
+                <div id="male-profs" class="col-6 lead"></div>
+            </section>
+            <section class="row text-center">
+                <div class="col-lg-4">
+                    <h3>Gender Balance</h3>
+                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse rerum corrupti, natus reiciendis repudiandae deserunt!</p>
+                    <div id="gender-balance" class="chart-box"></div>
+                </div>
+                <div class="col-lg-4">
+                    <h3>Average Pay</h3>
+                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse dignissimos, architecto fugit, eius maiores quasi!</p>
+                    <div id="average-pay" class="chart-box"></div>
+                </div>
+                <div class="col-lg-4">
+                    <h3>Rank Distribution</h3>
+                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit voluptas illo, molestiae assumenda, ipsum consequuntur?</p>
+                    <div id="rank-distribution" class="chart-box"></div>
+                </div>
+            </section>
+            <section class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h3>Years Service Vs Salary</h3>
+                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit facere exercitationem laudantium odio hic consequuntur. Maiores minima ipsum, molestias debitis.</p>
+                    <div id="years-vs-salary" class="chart-box"></div>        
+                </div>
+            </section>
+            <section class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h3>Years Since PHD Vs Salary</h3>
+                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima expedita labore nulla, debitis suscipit aspernatur dolore pariatur nam blanditiis culpa!</p>
+                    <div id="years-since-phd-vs-salary" class="chart-box"></div>        
+                </div>
+            </section>
+        </div>
+    </body>
 </html>

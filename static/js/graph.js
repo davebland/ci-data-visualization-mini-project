@@ -28,15 +28,14 @@ function show_gender_balance(ndx) {
     var group = dim.group();
     
     dc.barChart('#gender-balance')
-        .width(400)
-        .height(300)
+        //.width(400)
+        //.height(300)
         .margins({top: 10, right: 50, bottom: 30, left:50})
         .dimension(dim)
         .group(group)
         .transitionDuration(500)
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
-        .xAxisLabel("Gender")
         .yAxis().ticks(10);
 }
 
@@ -78,8 +77,8 @@ function show_average_salary(ndx) {
     var averageSalaryByGender = dim.group().reduce(add_Item, remove_Item, initialise);
     
     dc.barChart('#average-pay')
-        .width(400)
-        .height(300)
+        //.width(400)
+        //.height(300)
         .margins({top: 10, right: 50, bottom: 30, left:50})
         .dimension(dim)
         .group(averageSalaryByGender)
@@ -121,8 +120,8 @@ function show_rank_distribution(ndx) {
     var assocProfByGender = rankByGender(dim, "AssocProf");
     
     dc.barChart('#rank-distribution')
-        .width(400)
-        .height(300)
+        //.width(400)
+        //.height(300)
         .margins({top: 10, right: 50, bottom: 30, left:125})
         .dimension(dim)
         .group(profByGender, "Prof")
@@ -138,6 +137,8 @@ function show_rank_distribution(ndx) {
         .transitionDuration(500)
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
+        .xAxisLabel("Gender")
+        .yAxisLabel("% Dataset")
         .legend(dc.legend().x(20).y(20).itemHeight(15).gap(5))
 }
 
@@ -191,8 +192,8 @@ function show_years_vs_salary(ndx) {
     var maxExperience = yearsDim.top(1)[0].yrs_service;
     
     dc.scatterPlot('#years-vs-salary')
-        .width(800)
-        .height(300)
+        //.width() - Removed to make responsive to parent element size
+        //.height()
         .x(d3.scale.linear().domain([minExperience, maxExperience]))
         .brushOn(false)
         .symbolSize(8)
@@ -226,8 +227,8 @@ function show_phd_vs_salary(ndx) {
     var maxExperience = yearsDim.top(1)[0].yrs_since_phd;
     
     dc.scatterPlot('#years-since-phd-vs-salary')
-        .width(800)
-        .height(300)
+        //.width(800)
+        //.height(300)
         .x(d3.scale.linear().domain([minExperience, maxExperience]))
         .brushOn(false)
         .symbolSize(8)
